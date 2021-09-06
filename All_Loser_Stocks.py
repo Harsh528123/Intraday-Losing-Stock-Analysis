@@ -27,7 +27,7 @@ for small_data in soup.find_all("a",{"class":"tv-screener__symbol"}):
     #filters out content from attribute
     rawlist.append(slink)
 tickerlist=rawlist[0::2]
-#makes sure name only comes once
+#makes sure names only comes once
 officialticker=list()
 for ticker in tickerlist:
     tlist=ticker.split("-")
