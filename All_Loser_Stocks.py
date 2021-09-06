@@ -22,26 +22,15 @@ html = urllib.request.urlopen(url,context=ctx).read()
 soup = BeautifulSoup(html, "html.parser")
 rawlist=list()
 for small_data in soup.find_all("a",{"class":"tv-screener__symbol"}):
+    #finds all data with necessary filters 
     slink=small_data['href']
+    #filters out content from attribute
     rawlist.append(slink)
 tickerlist=rawlist[0::2]
+#makes sure name only comes once
 officialticker=list()
 for ticker in tickerlist:
     tlist=ticker.split("-")
     newticker=tlist[1].replace("/","")
     officialticker.append(newticker)
 #print(officialticker)
-
-
-
-
-    #slink is a string
-    # slink=slink.replace("?","/profile?")
-    # finallink="https://finance.yahoo.com"+ slink
-    # linklist.append(finallink)
-#-------------------------
-# tickerlist=list()
-# for link in linklist:
-    #link is a string
-    # ticker_s=link.split('/')
-    # ticker=(ticker_s[4]).rstrip()
