@@ -1,5 +1,4 @@
 
-#----------also works
 import ssl
 import urllib.request, urllib.parse, urllib.error
 from urllib.parse import urljoin
