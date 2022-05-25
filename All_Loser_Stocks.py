@@ -24,13 +24,15 @@ def accessingdata(soup):
     for small_data in soup.find_all("a",{"class":"tv-screener__symbol"}):
         # searches for tags with specific class attribute
         slink=small_data['href']
-        #filters out content from attribute
+        # filters out content from attribute
         rawlist.append(slink)
         tickerlist=rawlist[0::2]
         return(tickerlist)
 #makes sure names only comes once and grabs the ticker symbol
 def tickers(tickerlist):
     officialticker=list()
+    if tickerlist:
+        return(officialticker)
     for ticker in tickerlist:
         tlist=ticker.split("-")
         newticker=tlist[1].replace("/","")

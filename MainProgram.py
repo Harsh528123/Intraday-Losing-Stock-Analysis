@@ -8,30 +8,29 @@ import sqlite3
 import itertools
 import time
 #----------------SQL database
-def SQL_database():
-    conn = sqlite3.connect('Losers.sqlite')
-    cur = conn.cursor()
-    cur.executescript('''
-    DROP TABLE IF EXISTS Losers;
-    DROP TABLE IF EXISTS Ticker;
-    DROP TABLE IF EXISTS Incomechange;
+conn = sqlite3.connect('Losers.sqlite')
+cur = conn.cursor()
+cur.executescript('''
+DROP TABLE IF EXISTS Losers;
+DROP TABLE IF EXISTS Ticker;
+DROP TABLE IF EXISTS Incomechange;
 
-    CREATE TABLE Ticker (
-        id     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-        ticker TEXT UNIQUE
-    );
+CREATE TABLE Ticker (
+    id     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    ticker TEXT UNIQUE
+);
 
-    CREATE TABLE Incomechange (
-        id     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-        incomechange REAL
-    );
+CREATE TABLE Incomechange (
+    id     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    incomechange REAL
+);
 
-    CREATE TABLE Losers (
-        ticker_id       INTEGER,
-        incomechange_id INTEGER,
-        PRIMARY KEY (ticker_id, incomechange_id)
-    );
-    ''')
+CREATE TABLE Losers (
+    ticker_id       INTEGER,
+    incomechange_id INTEGER,
+    PRIMARY KEY (ticker_id, incomechange_id)
+);
+''')
 
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
@@ -114,18 +113,14 @@ def fetchingdata(officialticker):
             #print(symbol,percentincome)
             stopcallingAPI+=1
             if stopcallingAPI==5:
-    	    # api limit is 5 calls a minute so we have to wait
-    	    print("Please wait one minute so that the API allows us to use the data")
-                countdown(60)
-            else:
-                pass
+            # api limit is 5 calls a minute so we have to wait
+                print("Please wait one minute so that the API allows us to use the data")
         except:
             print("Not US stock")
     return(tickers,income_c)
 	# if it is not a US stock, alphavantage will not have data for it
 
 def main():
-    SQL_database()
     # opens a database
     tickers,income_c=fetchingdata(officialticker)
     #gets tickers and income
